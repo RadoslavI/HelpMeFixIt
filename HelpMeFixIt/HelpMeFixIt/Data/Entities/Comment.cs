@@ -8,6 +8,9 @@ namespace HelpMeFixIt.Data.Entities
 {
     public class Comment
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(TextMaxLength)]
         public string Text { get; set; }

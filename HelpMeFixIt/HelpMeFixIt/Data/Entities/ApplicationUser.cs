@@ -10,10 +10,15 @@ namespace HelpMeFixIt.Data.Entities
         {
             Announcements = new HashSet<Announcement>();
             Opinions = new HashSet<Opinion>();
+            Comments = new HashSet<Comment>();
         }
 
         [Required]
         public string FullName { get; set; }
+
+        public string ImagePath { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<Announcement> Announcements { get; set; }
 

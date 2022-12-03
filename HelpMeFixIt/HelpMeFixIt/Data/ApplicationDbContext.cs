@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelpMeFixIt.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -19,8 +19,8 @@ namespace HelpMeFixIt.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Comment>()
-                .HasKey(c => new { c.UserId, c.AnnouncementId });
+            builder.Entity<Rating>()
+                .HasKey(r => new { r.UserId, r.FixerId });
 
             base.OnModelCreating(builder);
         }

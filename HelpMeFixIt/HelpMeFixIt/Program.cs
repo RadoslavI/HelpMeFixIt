@@ -1,4 +1,7 @@
 using HelpMeFixIt.Data;
+using HelpMeFixIt.Data.Entities;
+using HelpMeFixIt.Infrastructure;
+using HelpMeFixIt.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,11 +11,27 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddIdentityCore<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+})
+    .AddRoles<IdentityRole>()
+    .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
