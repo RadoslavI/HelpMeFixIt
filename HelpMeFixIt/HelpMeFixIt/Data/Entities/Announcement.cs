@@ -12,6 +12,7 @@ namespace HelpMeFixIt.Data.Entities
         {
             this.Comments = new HashSet<Comment>();
         }
+
         [Key]
         public int Id { get; set; }
 

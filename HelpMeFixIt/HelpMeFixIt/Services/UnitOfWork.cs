@@ -4,8 +4,10 @@ namespace HelpMeFixIt.Services
 {
     public class UnitOfWork : IUnitOfWork
     {
+        [Obsolete]
         private Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment;
 
+        [Obsolete]
         public UnitOfWork(Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment)
         {
             hostingEnvironment = _hostingEnvironment;
@@ -31,6 +33,7 @@ namespace HelpMeFixIt.Services
             }
         }
 
+        [Obsolete]
         private string GetPathAndFileName(string filename)
         {
             string path = hostingEnvironment.WebRootPath + "\\uploads\\";
