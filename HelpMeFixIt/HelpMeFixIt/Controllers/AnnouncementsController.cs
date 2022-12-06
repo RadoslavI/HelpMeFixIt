@@ -34,5 +34,41 @@ namespace HelpMeFixIt.Controllers
 		{
 			return RedirectToAction(nameof(Details), new { id = "1" });
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Edit()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(int id, AnnouncementFormModel model)
+		{
+			return RedirectToAction(nameof(Details), new { id = "1" });
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete()
+		{
+			return View(new AnnouncementsDetailsViewModel());
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(int id, AnnouncementFormModel model)
+		{
+			return RedirectToAction(nameof(All));
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Fix(int id)
+		{
+			return RedirectToAction(nameof(Mine));
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Unfix(int id)
+		{
+			return RedirectToAction(nameof(Mine));
+		}
 	}
 }
