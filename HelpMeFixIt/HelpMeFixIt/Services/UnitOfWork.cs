@@ -1,4 +1,4 @@
-﻿using HelpMeFixIt.Infrastructure;
+﻿using HelpMeFixIt.Infrastructure.Contracts;
 
 namespace HelpMeFixIt.Services
 {

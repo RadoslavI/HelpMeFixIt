@@ -20,6 +20,8 @@ namespace HelpMeFixIt.Data.Entities
         [MaxLength(PhoneMaxLength)]
         public string PhoneNumber { get; set; }
 
+        public int fixesCount { get; set; } = 0;
+
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; }

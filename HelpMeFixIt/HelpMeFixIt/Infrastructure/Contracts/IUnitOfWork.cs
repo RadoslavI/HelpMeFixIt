@@ -1,4 +1,4 @@
-﻿namespace HelpMeFixIt.Infrastructure
+﻿namespace HelpMeFixIt.Infrastructure.Contracts
 {
     public interface IUnitOfWork
     {

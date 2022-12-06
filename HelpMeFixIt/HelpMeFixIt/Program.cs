@@ -1,6 +1,6 @@
 using HelpMeFixIt.Data;
 using HelpMeFixIt.Data.Entities;
-using HelpMeFixIt.Infrastructure;
+using HelpMeFixIt.Infrastructure.Contracts;
 using HelpMeFixIt.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

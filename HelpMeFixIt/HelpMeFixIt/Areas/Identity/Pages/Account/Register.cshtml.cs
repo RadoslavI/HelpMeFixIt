@@ -11,7 +11,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using HelpMeFixIt.Data.Entities;
-using HelpMeFixIt.Infrastructure;
+using HelpMeFixIt.Infrastructure.Contracts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
