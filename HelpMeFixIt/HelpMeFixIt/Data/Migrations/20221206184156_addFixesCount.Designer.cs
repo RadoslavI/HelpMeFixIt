@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HelpMeFixIt.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(HelpMeFixItDbContext))]
     [Migration("20221206184156_addFixesCount")]
     partial class addFixesCount
     {

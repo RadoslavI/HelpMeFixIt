@@ -78,8 +78,12 @@ namespace HelpMeFixIt.Areas.Identity.Pages.Account
             public string ImagePath { get; set; }
 
             [Required]
-            [Display(Name = "Full Name")]
-            public string FullName { get; set; }
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
 
             [Required]
             [EmailAddress]
@@ -121,7 +125,7 @@ namespace HelpMeFixIt.Areas.Identity.Pages.Account
             {
                 _unitOfWork.UploadImage(file);
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,
-                    ImagePath = file.FileName, FullName = Input.FullName };
+                    ImagePath = file.FileName, FirstName = Input.FirstName, LastName = Input.LastName };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

@@ -1,4 +1,5 @@
 ﻿using HelpMeFixIt.Models;
+using HelpMeFixIt.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,9 +7,17 @@ namespace HelpMeFixIt.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IFixersService fixers;
+
+        public HomeController(IFixersService _fixers)
         {
-            return View();
+            this.fixers = _fixers;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var fixers = await this.fixers.TopThreeFixers();
+            return View(fixers);
         }
 
 

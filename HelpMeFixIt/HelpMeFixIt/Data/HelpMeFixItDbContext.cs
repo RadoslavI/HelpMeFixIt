@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelpMeFixIt.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class HelpMeFixItDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public HelpMeFixItDbContext(DbContextOptions<HelpMeFixItDbContext> options)
             : base(options)
         {
         }

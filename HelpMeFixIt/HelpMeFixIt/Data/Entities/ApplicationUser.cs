@@ -14,9 +14,11 @@ namespace HelpMeFixIt.Data.Entities
         }
 
         [Required]
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
 
-        public string ImagePath { get; set; }
+        public string LastName { get; set; }
+
+		public string ImagePath { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 

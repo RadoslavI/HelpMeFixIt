@@ -17,13 +17,13 @@ namespace HelpMeFixIt.Controllers
 
 			//var model = new BecomeAgentModel();
 
-			return View();
+			return RedirectToAction("Home", "Index");
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> Become(BecomeFixerFormModel model)
 		{
-			return RedirectToAction("All", "House");
+			return RedirectToAction("Home", "Index");
 		}
 	}
 }

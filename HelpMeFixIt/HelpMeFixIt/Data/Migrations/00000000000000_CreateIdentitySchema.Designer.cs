@@ -9,7 +9,7 @@ using System;
 
 namespace HelpMeFixIt.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(HelpMeFixItDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
