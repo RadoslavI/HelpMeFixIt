@@ -10,10 +10,11 @@
     </li>
     <li>
         <div>
-               <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity?.Name! @*<img src="/uploads/@UserManager.FindByNameAsync(User.Identity?.Name).Result.ImagePath" class="w-25 p-3 img-fluid rounded-circle" *@</a>
+               <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity?.Name!</a>
         </div>
     </li>
-
+        <img class="d-block w-30 rounded-circle" style="height:38px"
+         src="/uploads/@UserManager.FindByNameAsync(User.Identity?.Name).Result.ImagePath">
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>

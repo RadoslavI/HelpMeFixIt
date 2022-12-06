@@ -14,6 +14,7 @@ namespace HelpMeFixIt.Data.Entities
             Rating = new HashSet<Rating>();
         }
 
+        [Key]
         public int Id { get; set; }
 
         [Required]

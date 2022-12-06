@@ -59,7 +59,7 @@ namespace HelpMeFixIt.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Announcements");
+                    b.ToTable("Announcements", (string)null);
                 });
 
             modelBuilder.Entity("HelpMeFixIt.Data.Entities.ApplicationUser", b =>
@@ -152,7 +152,7 @@ namespace HelpMeFixIt.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("HelpMeFixIt.Data.Entities.Comment", b =>
@@ -180,7 +180,7 @@ namespace HelpMeFixIt.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("HelpMeFixIt.Data.Entities.Fixer", b =>
@@ -206,7 +206,7 @@ namespace HelpMeFixIt.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Fixers");
+                    b.ToTable("Fixers", (string)null);
                 });
 
             modelBuilder.Entity("HelpMeFixIt.Data.Entities.Opinion", b =>
@@ -237,7 +237,7 @@ namespace HelpMeFixIt.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Opinions");
+                    b.ToTable("Opinions", (string)null);
                 });
 
             modelBuilder.Entity("HelpMeFixIt.Data.Entities.Rating", b =>
@@ -255,7 +255,7 @@ namespace HelpMeFixIt.Data.Migrations
 
                     b.HasIndex("FixerId");
 
-                    b.ToTable("Rating");
+                    b.ToTable("Rating", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
