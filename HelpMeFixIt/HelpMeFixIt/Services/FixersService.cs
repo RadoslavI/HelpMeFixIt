@@ -1,4 +1,5 @@
 ﻿using HelpMeFixIt.Data;
+using HelpMeFixIt.Data.Common;
 using HelpMeFixIt.Data.Entities;
 using HelpMeFixIt.Models.Fixers;
 using HelpMeFixIt.Services.Contracts;
@@ -8,14 +9,14 @@ namespace HelpMeFixIt.Services
 {
 	public class FixersService : IFixersService
 	{
-		private readonly HelpMeFixItDbContext data;
+		private readonly IRepository repo;
 
-		public FixersService(HelpMeFixItDbContext _data)
+		public FixersService(IRepository _repo)
 		{
-			this.data = _data;
+			this.repo = _repo;
 		}
 
-        public void Create(string userId, string phoneNumber)
+        public async Task Create(string userId, string phoneNumber)
         {
 			var fixer = new Fixer()
 			{
@@ -24,20 +25,20 @@ namespace HelpMeFixIt.Services
 				PhoneNumber = phoneNumber
 			};
 
-			data.Fixers.AddAsync(fixer);
-			data.SaveChangesAsync();
+			await repo.AddAsync(fixer);
+			await repo.SaveChangesAsync();
         }
 
-        public Task<bool> ExistsById(string userId)
+        public async Task<bool> ExistsById(string userId)
         {
-			return data.Fixers.AnyAsync(f => f.UserId == userId);
+			return await repo.All<Fixer>()
+				.AnyAsync(f => f.UserId == userId);
         }
 
         public async Task<IEnumerable<FixersIndexServiceModel>> TopThreeFixers()
 		{
 			return await 
-				this.data
-				.Fixers
+				repo.All<Fixer>()
 				.OrderByDescending(f => f.fixesCount)
 				.Select(f => new FixersIndexServiceModel()
 				{
@@ -49,9 +50,9 @@ namespace HelpMeFixIt.Services
 				.ToListAsync();
 		}
 
-        public Task<bool> UserWithPhoneNumberExists(string phoneNumber)
+        public async Task<bool> UserWithPhoneNumberExists(string phoneNumber)
         {
-            return data.Fixers.AnyAsync(f => f.PhoneNumber == phoneNumber);
+            return await repo.All<Fixer>().AnyAsync(f => f.PhoneNumber == phoneNumber);
         }
     }
 }

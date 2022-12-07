@@ -1,4 +1,5 @@
 using HelpMeFixIt.Data;
+using HelpMeFixIt.Data.Common;
 using HelpMeFixIt.Data.Entities;
 using HelpMeFixIt.Infrastructure.Contracts;
 using HelpMeFixIt.Services;
@@ -33,6 +34,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IFixersService, FixersService>();
 
 var app = builder.Build();

@@ -7,6 +7,6 @@ namespace HelpMeFixIt.Services.Contracts
         Task<IEnumerable<FixersIndexServiceModel>> TopThreeFixers();
         Task<bool> ExistsById(string userId);
         Task<bool> UserWithPhoneNumberExists(string phoneNumber);
-        void Create(string userId, string phoneNumber);
+        Task Create(string userId, string phoneNumber);
     }
 }

@@ -47,7 +47,7 @@ namespace HelpMeFixIt.Controllers
             }
 
 
-            this.fixers.Create(userId, model.PhoneNumber);
+            await this.fixers.Create(userId, model.PhoneNumber);
 
             return RedirectToAction(nameof(AnnouncementsController.All), "Announcements");
         }
