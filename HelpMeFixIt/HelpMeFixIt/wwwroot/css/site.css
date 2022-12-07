@@ -16,3 +16,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    background-image: none;
+    color: black;
+    font-size: 30px;
+}

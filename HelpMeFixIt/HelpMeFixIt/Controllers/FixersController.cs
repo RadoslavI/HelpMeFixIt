@@ -37,8 +37,9 @@ namespace HelpMeFixIt.Controllers
 
             if (await fixers.ExistsById(userId))
 			{
-				return BadRequest();
-			}
+                ModelState.AddModelError(nameof(model.PhoneNumber),
+                    "You already are a fixer!");
+            }
 
             if (await fixers.UserWithPhoneNumberExists(model.PhoneNumber))
             {

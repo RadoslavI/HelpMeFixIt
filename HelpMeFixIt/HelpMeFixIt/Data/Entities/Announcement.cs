@@ -25,7 +25,7 @@ namespace HelpMeFixIt.Data.Entities
         public string Description { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public decimal Payment { get; set; }
 
         [Required]
         public int CategoryId { get; set; }

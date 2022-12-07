@@ -25,15 +25,18 @@
 }
 
 <div class="mb-5"></div>
-
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+<div class="row justify-content-center align-items-center">
+<h2 class="display-2">Our top fixers</h2>
+    <hr>
+   </div>
+<div id="Home" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @for (int i = 0; i < fixers.Count(); i++)
         {
             var fixer = fixers[i];
-            <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
-                <img class="d-block w-100" style="height:500px"
-                 src="/uploads/@fixer.ImagePath" alt="@fixer.Email">
+            <div class="d-flex justify-content-center carousel-item @(i == 0 ? "active" : string.Empty)">
+                <img src="/uploads/@fixer.ImagePath" class="d-flex w-50"
+                  alt="@fixer.Email">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
                         <a class="btn btn-primary" asp-controller="Fixers" asp-action="Details"
@@ -43,12 +46,10 @@
             </div>
         }
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true">Next</span>
+    </a>
 </div>

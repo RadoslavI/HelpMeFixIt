@@ -1,4 +1,7 @@
-﻿using HelpMeFixIt.Models.Announcements;
+﻿using HelpMeFixIt.Data.Common;
+using HelpMeFixIt.Infrastructure;
+using HelpMeFixIt.Models.Announcements;
+using HelpMeFixIt.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +10,15 @@ namespace HelpMeFixIt.Controllers
 	[Authorize]
     public class AnnouncementsController : Controller
     {
-		[AllowAnonymous]
+		private readonly IAnnouncementsService announcements;
+
+        public AnnouncementsController(
+			IAnnouncementsService _announcements)
+        {
+            this.announcements = _announcements;
+        }
+
+        [AllowAnonymous]
 		public async Task<IActionResult> All()
         {
             return View(new AllAnnouncementsQueryModel());
@@ -26,13 +37,35 @@ namespace HelpMeFixIt.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Add() 
 		{
-			return View();
+			return View(new AnnouncementFormModel()
+			{
+				Categories = await announcements.AllCategories()
+			});
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> Add(AnnouncementFormModel model)
 		{
-			return RedirectToAction(nameof(Details), new { id = "1" });
+			if (!await announcements.CategoryExists(model.CategoryId))
+			{
+				this.ModelState.AddModelError(nameof(model.CategoryId),
+					"Category does not exist.");
+			}
+
+			if (!ModelState.IsValid)
+			{
+				model.Categories = await announcements.AllCategories();
+
+				return View(model);
+			}
+
+			string userId = this.User.Id();
+
+			var newAnnouncementId = await announcements.Create(model.Title,
+				model.Description, model.Payment,
+				model.CategoryId, userId);
+
+			return RedirectToAction(nameof(Details), new { id = newAnnouncementId });
 		}
 
 		[HttpGet]
