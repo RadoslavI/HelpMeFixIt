@@ -36,6 +36,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IFixersService, FixersService>();
+builder.Services.AddScoped<IAnnouncementsService, AnnouncementService>();
 
 var app = builder.Build();
 

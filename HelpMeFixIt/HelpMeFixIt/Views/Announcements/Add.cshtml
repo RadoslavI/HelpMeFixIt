@@ -1,4 +1,4 @@
-﻿@model AllAnnouncementsQueryModel
+﻿@model AnnouncementFormModel
 
 @{
 	ViewBag.Title = "Add a Problem";
@@ -6,3 +6,9 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<partial name="_AnnouncementFormPartial" model="@Model" />
+
+@section Scripts{
+	<partial name="_ValidationScriptsPartial" />
+}
