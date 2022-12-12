@@ -1,6 +1,9 @@
 ﻿namespace HelpMeFixIt.Models
 {
-    public class AnnouncementSorting
+    public enum AnnouncementSorting
     {
+        Newest = 0,
+        Payment = 1,
+        NotFixedFirst = 2
     }
 }

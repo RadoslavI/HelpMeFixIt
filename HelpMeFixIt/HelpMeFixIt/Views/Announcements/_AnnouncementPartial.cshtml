@@ -1,0 +1,41 @@
+﻿@model AnnouncementServiceModel
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        @*<img class="card-img-top" src="@Model.ImageUrl" alt="House Image">*@
+        <div class="card-body text-center">
+            <h4>@Model.Title</h4>
+            <h6>Announcer: <b>@Model.Announcer</b></h6>
+            <h6>
+                Offered Payment:
+                <b>@String.Format("{0:f2}", Model.Payment) BGN</b>
+            </h6>
+            <h6>(@(Model.IsFixed ? "Fixed" : "Not Fixed"))</h6>
+            <br />
+            <a asp-controller="A" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-success">Details</a>
+            @*@if (this.User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Houses" asp-action="Edit" asp-route-id="@Model.Id"
+               class="btn btn-warning">Edit</a>
+                <a asp-controller="Houses" asp-action="Delete" asp-route-id="@Model.Id"
+               class="btn btn-danger">Delete</a>
+                <p></p>
+                @if (!Model.IsFixed)
+                {
+                    <form class="input-group-sm" asp-controller="Houses"
+                  asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                        <input class="btn btn-primary" type="submit" value="Rent" />
+                    </form>
+                }
+                else
+                {
+                    <form asp-controller="Houses" asp-action="Leave"
+                  asp-route-id="@Model.Id" method="post">
+                        <input class="btn btn-primary" type="submit" value="Leave" />
+                    </form>
+                }
+            }*@
+        </div>
+    </div>
+</div>

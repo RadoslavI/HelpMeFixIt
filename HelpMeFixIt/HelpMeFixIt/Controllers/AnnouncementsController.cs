@@ -19,9 +19,22 @@ namespace HelpMeFixIt.Controllers
         }
 
         [AllowAnonymous]
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All([FromQuery] AllAnnouncementsQueryModel query)
         {
-            return View(new AllAnnouncementsQueryModel());
+			var queryResult = await announcements.All(
+				query.Category,
+				query.SearchTerm,
+				query.Sorting,
+				query.CurrentPage,
+				AllAnnouncementsQueryModel.AnnouncementsPerPage);
+
+			query.TotalAnnouncementsCount = queryResult.TotalAnnouncements;
+			query.Announcements = queryResult.Announcements;
+
+			var announcementCategories = await announcements.AllCategoriesNames();
+			query.Categories = announcementCategories;
+
+			return View(query);
         }
 
 		public async Task<IActionResult> Mine()

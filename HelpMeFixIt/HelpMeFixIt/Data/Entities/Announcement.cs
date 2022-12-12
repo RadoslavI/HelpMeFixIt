@@ -40,6 +40,6 @@ namespace HelpMeFixIt.Data.Entities
         [ForeignKey(nameof(UserId))]
         public virtual ApplicationUser User { get; set; }
 
-        public int FixerId { get; set; }
+        public int? FixerId { get; set; }
     }
 }

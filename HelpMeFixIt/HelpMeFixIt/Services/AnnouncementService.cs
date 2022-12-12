@@ -16,7 +16,7 @@ namespace HelpMeFixIt.Services
             this.repo = _repo;
         }
 
-        public Task<AnnouncementQueryServiceModel> All(
+        public async Task<AnnouncementQueryServiceModel> All(
             string category = null,
             string searchTerm = null,
             AnnouncementSorting sorting = AnnouncementSorting.Newest,
@@ -48,8 +48,27 @@ namespace HelpMeFixIt.Services
                 _ => announcementQuery.OrderByDescending(a => a.Id)
             };
 
-            var announcements = announcementQuery
-                .Skip((currentPage - 1) * hou)
+            var announcements = await announcementQuery
+                .Skip((currentPage - 1) * announcementsPerPage)
+                .Take(announcementsPerPage)
+                .Select(a => new AnnouncementServiceModel
+                {
+                    Id = a.Id,
+                    Title = a.Title,
+                    Description = a.Description,
+                    IsFixed = a.FixerId != null,
+                    Payment = a.Payment,
+                    Announcer = a.User.Email
+                })
+                .ToListAsync();
+
+            var totalAnnouncements = announcementQuery.Count();
+
+            return new AnnouncementQueryServiceModel()
+            {
+                Announcements = announcements,
+                TotalAnnouncements = totalAnnouncements
+            };
         }
 
         public async Task<IEnumerable<AnnouncementCategoryServiceModel>> AllCategories()
@@ -64,9 +83,13 @@ namespace HelpMeFixIt.Services
                 }).ToListAsync();
         }
 
-        public Task<IEnumerable<string>> AllCategoriesNames()
+        public async Task<IEnumerable<string>> AllCategoriesNames()
         {
-            throw new NotImplementedException();
+            return await repo.
+                All<Category>()
+                .Select(c => c.Name)
+                .Distinct()
+                .ToListAsync();
         }
 
         public async Task<bool> CategoryExists(int categoryId)
