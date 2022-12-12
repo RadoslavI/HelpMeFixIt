@@ -35,7 +35,16 @@ namespace HelpMeFixIt.Services
 				.AnyAsync(f => f.UserId == userId);
         }
 
-        public async Task<IEnumerable<FixersIndexServiceModel>> TopThreeFixers()
+		public async Task<int> GetFixerId(string userId)
+		{
+			var fixer = await repo
+				.All<Fixer>()
+				.FirstAsync(f => f.UserId == userId);
+
+			return fixer.Id;
+		}
+
+		public async Task<IEnumerable<FixersIndexServiceModel>> TopThreeFixers()
 		{
 			return await 
 				repo.All<Fixer>()

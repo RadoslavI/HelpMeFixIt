@@ -11,12 +11,15 @@ namespace HelpMeFixIt.Controllers
     public class AnnouncementsController : Controller
     {
 		private readonly IAnnouncementsService announcements;
+		private readonly IFixersService fixers;
 
-        public AnnouncementsController(
-			IAnnouncementsService _announcements)
+		public AnnouncementsController(
+			IAnnouncementsService _announcements,
+			IFixersService _fixers)
         {
             this.announcements = _announcements;
-        }
+            this.fixers = _fixers;
+		}
 
         [AllowAnonymous]
 		public async Task<IActionResult> All([FromQuery] AllAnnouncementsQueryModel query)
@@ -39,10 +42,36 @@ namespace HelpMeFixIt.Controllers
 
 		public async Task<IActionResult> Mine()
 		{
-			return View(new AllAnnouncementsQueryModel());
+			IEnumerable<AnnouncementServiceModel> myAnnouncements = null;
+
+			var userId = this.User.Id();
+
+			myAnnouncements = await announcements
+				.AllAnnouncementsByUserId(userId);
+
+			return View(myAnnouncements);
 		}
 
-		public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> MyFixes()
+        {
+			IEnumerable<AnnouncementServiceModel> myFixes = null;
+
+			var userId = this.User.Id();
+
+			if (!await fixers.ExistsById(userId))
+			{
+				return BadRequest();
+			}
+
+			var currentFixerId = await fixers.GetFixerId(userId);
+
+			myFixes = await announcements
+				.AllAnnouncementsByFixerId(currentFixerId);
+
+			return View(myFixes);
+		}
+
+        public async Task<IActionResult> Details(int id)
 		{
 			return View(new AnnouncementsDetailsViewModel());
 		}

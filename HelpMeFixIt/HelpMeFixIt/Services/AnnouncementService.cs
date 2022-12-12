@@ -4,6 +4,7 @@ using HelpMeFixIt.Models;
 using HelpMeFixIt.Models.Announcements;
 using HelpMeFixIt.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Announcement = HelpMeFixIt.Data.Entities.Announcement;
 
 namespace HelpMeFixIt.Services
 {
@@ -41,7 +42,7 @@ namespace HelpMeFixIt.Services
             announcementQuery = sorting switch
             {
                 AnnouncementSorting.Payment => announcementQuery
-                    .OrderBy(a => a.Payment),
+                    .OrderByDescending(a => a.Payment),
                 AnnouncementSorting.NotFixedFirst => announcementQuery
                     .OrderBy(a => a.FixerId != null)
                     .ThenByDescending(a => a.Id),
@@ -90,6 +91,43 @@ namespace HelpMeFixIt.Services
                 .Select(c => c.Name)
                 .Distinct()
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<AnnouncementServiceModel>> AllAnnouncementsByFixerId(int fixerId)
+        {
+            var announcements = await this.repo
+                .All<Announcement>()
+                .Where(a => a.FixerId == fixerId)
+                .ToListAsync();
+
+            return ProjectToModel(announcements);
+        }
+
+        private IEnumerable<AnnouncementServiceModel> ProjectToModel(List<Announcement> announcements)
+        {
+            var resultAnnouncements = announcements
+                .Select(a => new AnnouncementServiceModel()
+                {
+                    Id = a.Id,
+                    Announcer = a.User.Email,
+                    Description = a.Description,
+                    IsFixed = a.FixerId != null,
+                    Payment = a.Payment,
+                    Title = a.Title
+                })
+                .ToList();
+
+            return resultAnnouncements;
+        }
+
+        public async Task<IEnumerable<AnnouncementServiceModel>> AllAnnouncementsByUserId(string userId)
+        {
+            var announcements = await this.repo
+            .All<Announcement>()
+                .Where(a => a.UserId == userId)
+                .ToListAsync();
+
+            return ProjectToModel(announcements);
         }
 
         public async Task<bool> CategoryExists(int categoryId)

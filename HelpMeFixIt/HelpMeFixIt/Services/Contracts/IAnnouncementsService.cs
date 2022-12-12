@@ -16,5 +16,8 @@ namespace HelpMeFixIt.Services.Contracts
             int currentPage = 1,
             int housePerPage = 1);
         Task<IEnumerable<string>> AllCategoriesNames();
+        Task<IEnumerable<AnnouncementServiceModel>> AllAnnouncementsByFixerId(int fixerId);
+        Task<IEnumerable<AnnouncementServiceModel>> AllAnnouncementsByUserId(string userId);
+
     }
 }
