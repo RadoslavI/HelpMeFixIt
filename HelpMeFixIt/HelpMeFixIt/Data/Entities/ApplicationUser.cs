@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 #nullable disable
 
 namespace HelpMeFixIt.Data.Entities
@@ -19,6 +21,14 @@ namespace HelpMeFixIt.Data.Entities
         public string LastName { get; set; }
 
 		public string ImagePath { get; set; }
+
+        public bool IsFixer { get; set; } = false;
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(Microsoft.AspNet.Identity.UserManager<ApplicationUser> manager)
+        {
+           var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+           userIdentity.AddClaim(new Claim("avatar", this.Avatar));
+           return userIdentity;
+        }
 
         public virtual ICollection<Comment> Comments { get; set; }
 

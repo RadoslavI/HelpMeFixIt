@@ -25,6 +25,10 @@ namespace HelpMeFixIt.Services
 				PhoneNumber = phoneNumber
 			};
 
+			var user = await repo.GetByIdAsync<ApplicationUser>(userId);
+
+			user.IsFixer = true;
+
 			await repo.AddAsync(fixer);
 			await repo.SaveChangesAsync();
         }

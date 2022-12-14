@@ -28,6 +28,13 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Announcements" asp-action="Mine">My problems</a>
                             </li>
 
+                            @if (this.User.Identity.)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Announcements" asp-action="MyFixes">Problems that I fixed</a>
+                                </li>
+                            }
+                            
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Announcements" asp-action="Add">Add a problem</a>
                             </li>
